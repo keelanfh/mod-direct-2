@@ -6,14 +6,16 @@
 
 {% block body %}
 
-<div class="title">{{ module.id }}: {{ module.title }}</div>
+<div class="title">{{ module.id }} <br/>{{ module.title }}</div>
 <br/>
+<div class="menu">
 <a href = "{{ module.url }}">Syllabus</a>
-<br/>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href = "{{ module.moodle_url}}">Moodle</a>
-<br/>
-<a href = "{{ module.exams_url}}">Past Examination Papers</a>
-<br/>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href = "{{ module.exams_url}}">Exam Papers</a>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href = "{{ module.readinglist_url}}">Reading List</a>
+</div>
 
 {% endblock %}

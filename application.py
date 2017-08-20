@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-import flask.ext.whooshalchemy
 import pandas
 import re
 
@@ -10,7 +9,6 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///modules.db"
 app.config["SQLALCHEMY_ECHO"] = True
-app.config["WHOOSH_BASE"] = 'data/whoosh_index'
 db = SQLAlchemy(app)
 
 
@@ -37,13 +35,13 @@ class Module(db.Model):
     url = db.Column(db.Text)
     _machine_url = db.Column(db.Text)
 
-    __searchable__ = ['id', 'description', 'aims', 'content']
-
     def __init__(self, code, title, level, value):
         self.id = code.upper()
         self.title = title
         self.level = level
         self.value = value
+
+
 
     # Return department code
     @property
@@ -73,7 +71,7 @@ class Module(db.Model):
                 return None
 
     @machine_url.setter
-    def machine_url(self, url):
+    def machine_url(self,url):
         self._machine_url = url
 
     @property
@@ -111,15 +109,14 @@ def index():
     rows = Module.query.all()
     return render_template("index.html", modules=rows)
 
-
 @app.route("/module/<module_id>")
 def module(module_id):
     module_id = module_id.upper()
     module = Module.query.filter_by(id=module_id).first()
     return render_template("module.html", module=module)
 
-
 def import_from_running_list():
+
     # Open excel file with the list of modules
     module_list = pandas.read_excel('data/running_list.xlsx')
 

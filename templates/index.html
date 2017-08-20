@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    registrants
+{% endblock %}
+
+{% block body %}
+<ul>
+    {% for module in modules %}
+        <p>{{ module.id }} : {{ module.title }}</p>
+    {% endfor %}
+</ul>
+{% endblock %}

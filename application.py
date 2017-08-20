@@ -88,6 +88,16 @@ class Module(db.Model):
         self._exams_url = self.exams_url
         self._readinglist_url = self.readinglist_url
 
+@app.route("/")
+def index():
+    rows = Module.query.all()
+    return render_template("index.html", modules=rows)
+
+@app.route("/module/<module_id>")
+def module(module_id):
+    module_id = module_id.upper()
+    module = Module.query.filter_by(id=module_id).first()
+    return render_template("module.html", module=module)
 
 def import_from_running_list():
 
@@ -100,5 +110,3 @@ def import_from_running_list():
         db.session.add(module)
     db.session.commit()
 
-if __name__ == "__main__":
-    import_from_running_list()

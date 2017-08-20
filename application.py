@@ -33,6 +33,7 @@ class Module(db.Model):
     prereqs = db.Column(db.Text)
     financial_contribs = db.Column(db.Text)
     url = db.Column(db.Text)
+    _machine_url = db.Column(db.Text)
 
     def __init__(self, code, title, level, value):
         self.id = code.upper()
@@ -40,20 +41,22 @@ class Module(db.Model):
         self.level = level
         self.value = value
 
+
+
     # Return department code
     @property
     def dept_code(self):
-        return self.code[:4]
+        return self.id[:4]
 
     # Return only the numbers in the module code
     @property
     def num_code(self):
-        return "".join(x for x in self.code if x.isdigit())
+        return "".join(x for x in self.id if x.isdigit())
 
     # Return lowercase item
     @property
     def lower_code(self):
-        return self.code.lower()
+        return self.id.lower()
 
     # Return the URL to machine-readable data.
     # Return human-readable URL if that is not present.
@@ -73,15 +76,15 @@ class Module(db.Model):
 
     @property
     def moodle_url(self):
-        return "https://moodle.ucl.ac.uk/course/search.php?search=" + self.code
+        return "https://moodle.ucl.ac.uk/course/search.php?search=" + self.id
 
     @property
     def exams_url(self):
-        return "http://ucl-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/search.do?ct=facet&fctN=facet_rtype&fctV=exam_papers&rfnGrp=1&rfnGrpCounter=1&frbg=&fn=search&indx=1&dscnt=0&scp.scps=scope%3A(UCL)%2Cprimo_central_multiple_fe&vid=UCL_VU1&mode=Basic&ct=search&srt=rank&tab=local&vl(freeText0)=" + self.code + "&dum=true"
+        return "http://ucl-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/search.do?ct=facet&fctN=facet_rtype&fctV=exam_papers&rfnGrp=1&rfnGrpCounter=1&frbg=&fn=search&indx=1&dscnt=0&scp.scps=scope%3A(UCL)%2Cprimo_central_multiple_fe&vid=UCL_VU1&mode=Basic&ct=search&srt=rank&tab=local&vl(freeText0)=" + self.id + "&dum=true"
 
     @property
     def readinglist_url(self):
-        return "http://readinglists.ucl.ac.uk/search.html?q=" + self.code
+        return "http://readinglists.ucl.ac.uk/search.html?q=" + self.id
 
     def update_urls(self):
         self._moodle_url = self.moodle_url

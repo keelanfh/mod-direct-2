@@ -5,7 +5,15 @@
 {% endblock %}
 
 {% block body %}
-<ul>
-        <p>{{ module.id }} : {{ module.title }}</p>
-</ul>
+
+<div class="title">{{ module.id }}: {{ module.title }}</div>
+<br/>
+<a href = "{{ module.url }}">Syllabus</a>
+<br/>
+<a href = "{{ module.moodle_url}}">Moodle</a>
+<br/>
+<a href = "{{ module.exams_url}}">Past Examination Papers</a>
+<br/>
+<a href = "{{ module.readinglist_url}}">Reading List</a>
+
 {% endblock %}

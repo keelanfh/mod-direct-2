@@ -38,14 +38,14 @@ for module in module_list:
         if m:
             module.url = rule.generate_url(module)
 
-db.session.commit()
+machine_url_rules = [URLRule(x) for x in pandas.read_excel('URL_Rules.xlsx', 'Machine').itertuples()]
 
-# machine_url_rules = [URLRule(x) for x in pandas.read_excel('URL_Rules.xlsx', 'Machine').itertuples()]
-#
-# for module in module_list:
-#     for rule in machine_url_rules:
-#         # If the regex matches, make the
-#         m = re.match(rule.Regex, module.id)
-#         if m:
-#             module.machine_url = rule.generate_url(module)
+for module in module_list:
+    for rule in machine_url_rules:
+        # If the regex matches, make the
+        m = re.match(rule.Regex, module.id)
+        if m:
+            module.machine_url = rule.generate_url(module)
+
+db.session.commit()
 

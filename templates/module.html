@@ -31,8 +31,6 @@
     {{ module.html_teaching_method | safe }}
     {% endif %}
 
-
-
     {% if module.prereqs or module.available_external or module.available_affiliate %}
     <h1>Pre-requisites</h1>
     {% if module.prereqs %}
@@ -45,6 +43,33 @@
     This module is available to affiliate students.<br/>
     {% endif %}
     {% endif %}
+
+    {% if module.reading %}
+    <h1>Reading</h1>
+    {{ module.reading}}
+    {% endif %}
+
+    {% if module.assessment_method %}
+    <h1>Assessment</h1>
+    {{ module.assessment_method }}
+    {% endif %}
+
+    {% if module.aims %}
+    <h1>Aims</h1>
+    {{ module.aims }}
+    {% endif %}
+
+    {% if module.content %}
+    <h1>Content</h1>
+    {{ module.content }}
+    {% endif %}
+
+    {% if module.financial_contribs %}
+    <h1>Financial Contributions</h1>
+    {{ module.financial_contribs }}
+    {% endif %}
+
+
 </div>
 
 {% endblock %}

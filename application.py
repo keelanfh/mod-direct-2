@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+import pandas
 
 app = Flask(__name__)
 
@@ -86,3 +87,18 @@ class Module(db.Model):
         self._moodle_url = self.moodle_url
         self._exams_url = self.exams_url
         self._readinglist_url = self.readinglist_url
+
+
+def import_from_running_list():
+
+    # Open excel file with the list of modules
+    module_list = pandas.read_excel('data/running_list.xlsx')
+
+    # Create a Module object containing this information, then output to dict
+    for x in module_list.itertuples():
+        module = Module(code=x.Code, title=x.Title, level=x.Level, value=x.Value)
+        db.session.add(module)
+    db.session.commit()
+
+if __name__ == "__main__":
+    import_from_running_list()

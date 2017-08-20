@@ -1,13 +1,16 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    registrants
+registrants
 {% endblock %}
 
 {% block body %}
 <ul>
+    <div class="title">
+        UCL Undergraduate Modules
+    </div>
     {% for module in modules %}
-        <p>{{ module.id }} : {{ module.title }}</p>
+    <p><a href="/module/{{ module.id }}">{{ module.id }} : {{ module.title }}</a></p>
     {% endfor %}
 </ul>
 {% endblock %}

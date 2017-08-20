@@ -45,8 +45,6 @@ class Module(db.Model):
         self.level = level
         self.value = value
 
-
-
     # Return department code
     @property
     def dept_code(self):
@@ -75,7 +73,7 @@ class Module(db.Model):
                 return None
 
     @machine_url.setter
-    def machine_url(self,url):
+    def machine_url(self, url):
         self._machine_url = url
 
     @property
@@ -113,14 +111,15 @@ def index():
     rows = Module.query.all()
     return render_template("index.html", modules=rows)
 
+
 @app.route("/module/<module_id>")
 def module(module_id):
     module_id = module_id.upper()
     module = Module.query.filter_by(id=module_id).first()
     return render_template("module.html", module=module)
 
-def import_from_running_list():
 
+def import_from_running_list():
     # Open excel file with the list of modules
     module_list = pandas.read_excel('data/running_list.xlsx')
 

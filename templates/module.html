@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    registrants
+    {{ module.id }} {{ module.title }}
 {% endblock %}
 
 {% block body %}
@@ -16,6 +16,35 @@
 <a href = "{{ module.exams_url}}">Exam Papers</a>
 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href = "{{ module.readinglist_url}}">Reading List</a>
+</div>
+<div class="menu">
+    {{ module.value }} credits
+    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    Term {{ module.term }}
+    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    {{ module.people }}
+</div>
+<div class="body">
+    {{ module.html_description | safe}}
+    {% if module.teaching_method %}
+    <h1>Teaching Method</h1>
+    {{ module.html_teaching_method | safe }}
+    {% endif %}
+
+
+
+    {% if module.prereqs or module.available_external or module.available_affiliate %}
+    <h1>Pre-requisites</h1>
+    {% if module.prereqs %}
+    {{ module.html_prereqs | safe}}<br/><br/>
+    {% endif %}
+    {% if module.available_external %}
+    This module is available to external students.<br/>
+    {% endif %}
+    {% if module.available_affiliate %}
+    This module is available to affiliate students.<br/>
+    {% endif %}
+    {% endif %}
 </div>
 
 {% endblock %}

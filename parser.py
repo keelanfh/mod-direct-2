@@ -97,8 +97,7 @@ def parse(module_id):
         del output_dict["Learning Outcomes"]
     for k in output_dict.keys():
         if keymap[k] is not None:
-            field = getattr(module, keymap[k])
-            field = output_dict[k]
+            setattr(module, keymap[k], output_dict[k])
         del output_dict[k]
     print output_dict
 

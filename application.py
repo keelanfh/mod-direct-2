@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 import pandas
+import re
 
 app = Flask(__name__)
 
@@ -14,7 +15,6 @@ db = SQLAlchemy(app)
 class Module(db.Model):
     __tablename__ = "modules"
     id = db.Column(db.Text, primary_key=True)
-    name = db.Column(db.Text)
     title = db.Column(db.Text)
     level = db.Column(db.Text)
     value = db.Column(db.Float)
@@ -91,6 +91,19 @@ class Module(db.Model):
         self._exams_url = self.exams_url
         self._readinglist_url = self.readinglist_url
 
+    @property
+    def html_description(self):
+        return make_html(self.description)
+
+    @property
+    def html_prereqs(self):
+        return make_html(self.prereqs)
+
+    @property
+    def html_teaching_method(self):
+        return make_html(self.teaching_method)
+
+
 @app.route("/")
 def index():
     rows = Module.query.all()
@@ -113,3 +126,10 @@ def import_from_running_list():
         db.session.add(module)
     db.session.commit()
 
+
+def make_html(result):
+    if result is None:
+        return None
+    # Hyperlink all Geography links
+    result = re.sub(r"(GEOG)\s*([0-9]{4})", r'<a href="/module/\1\2">\1\2</a>', result)
+    return re.sub(r"\n", r'<br/>', result)

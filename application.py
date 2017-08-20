@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+import flask.ext.whooshalchemy
 import pandas
 import re
 
@@ -9,6 +10,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///modules.db"
 app.config["SQLALCHEMY_ECHO"] = True
+app.config["WHOOSH_BASE"] = 'data/whoosh_index'
 db = SQLAlchemy(app)
 
 
@@ -34,6 +36,8 @@ class Module(db.Model):
     financial_contribs = db.Column(db.Text)
     url = db.Column(db.Text)
     _machine_url = db.Column(db.Text)
+
+    __searchable__ = ['id', 'description', 'aims', 'content']
 
     def __init__(self, code, title, level, value):
         self.id = code.upper()

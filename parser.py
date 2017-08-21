@@ -55,7 +55,8 @@ def parse(module_id):
                     raise AssertionError()
             module.url_parsed = True
 
-    elif module_id[:4] == "PSYC":
+    elif module_id[:4] in ["PSYC", "ANAT", "BIOC", "BIOL", "BIOS", "CELL", "NEUR", "PHAR", "PHOL", "PALS", "PHAY"]:
+        return
 
         with open(html_output_file(module_id), 'r') as f:
             text = f.read()
@@ -67,6 +68,16 @@ def parse(module_id):
             extracted = para.xpath('.//text()').extract()
             if len(extracted) == 2:
                 output_dict[extracted[0].replace(":", "")] = extracted[1]
+
+    elif module_id[:4] == "ARCL":
+
+        with open(html_output_file(module_id), 'r') as f:
+            text = f.read()
+            s = Selector(text=text)
+
+        description = s.xpath('//div[@id="col3"]//p//text()').extract()
+        description = description[0]
+        output_dict["Brief Course Description"] = description
 
     else:
         return
@@ -139,7 +150,10 @@ def parse(module_id):
     for k in output_dict.keys():
         try:
             if keymap[k] is not None:
-                setattr(module, keymap[k], output_dict[k])
+                if output_dict[k].strip() == "":
+                    setattr(module, keymap[k], None)
+                else:
+                    setattr(module, keymap[k], output_dict[k])
             del output_dict[k]
         except KeyError:
             raise ParseError("Behaviour not defined for key " + k)
@@ -151,7 +165,5 @@ def parse(module_id):
 
 for x in os.listdir('data/syllabus_html'):
     parse(x.split('.')[0])
-
-parse("PSYC1103")
 
 db.session.commit()

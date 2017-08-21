@@ -61,13 +61,10 @@ class Module(db.Model):
     # Return human-readable URL if that is not present.
     @property
     def machine_url(self):
-        try:
+        if self._machine_url is None:
+            return self.url
+        else:
             return self._machine_url
-        except AttributeError:
-            try:
-                return self.url
-            except AttributeError:
-                return None
 
     @machine_url.setter
     def machine_url(self, url):

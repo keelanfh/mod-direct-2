@@ -18,12 +18,14 @@ def html_output_file(module_code):
 
 # Function to parse the page for a given module
 def parse(module_id):
+    module = Module.query.filter_by(id=module_id).first()
+    output_dict = {}
+
     # TODO sort this out, it's messy. Might require object creation or something.
     if module_id[:4] == 'GEOG':
+        # TODO remove this
+        return
 
-        module = Module.query.filter_by(id=module_id).first()
-
-        output_dict = {}
         with open(html_output_file(module_id), 'r') as f:
             text = f.read()
             s = Selector(text=text)
@@ -52,6 +54,19 @@ def parse(module_id):
                     print para.xpath('b/text()').extract()
                     raise AssertionError()
             module.url_parsed = True
+
+    elif module_id[:4] == "PSYC":
+
+        with open(html_output_file(module_id), 'r') as f:
+            text = f.read()
+            s = Selector(text=text)
+
+        paragraphs = s.xpath('//tr')
+        for para in paragraphs:
+            print para.xpath('.//text()').extract()
+            extracted = para.xpath('.//text()').extract()
+            if len(extracted) == 2:
+                output_dict[extracted[0].replace(":", "")] = extracted[1]
 
     else:
         return
@@ -95,7 +110,26 @@ def parse(module_id):
               "Programme Term Running": "term",
               "Programme Year Running": "programme_year",
               "Unit Value": None,
-              "Academic Year": None
+              "Academic Year": None,
+              "Module code": None,
+              "Title": None,
+              "Credit value": None,
+              "Division": None,
+              "Module organiser (provisional)": "people",
+              "Organiser's location": None,
+              "Organiser's email": None,
+              "Available for students in Year(s)": None,
+              "Module prerequisites": "prereqs",
+              "Module outline": "description",
+              "Module aims": "aims",
+              "Module objectives": None,
+              "Key skills provided by module": None,
+              "Module assessment": "assessment_method",
+              "Notes": None,
+              "Taking this module as an option?": None,
+              "Link to virtual learning environment (registered students only)": None,
+              "Last updated": None,
+              "Module timetable": None
               }
 
     if "Course Aims" in output_dict and "Learning Outcomes" in output_dict:
@@ -117,5 +151,7 @@ def parse(module_id):
 
 for x in os.listdir('data/syllabus_html'):
     parse(x.split('.')[0])
+
+parse("PSYC1103")
 
 db.session.commit()

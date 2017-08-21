@@ -27,16 +27,16 @@
     {{ module.people }}
 </div>
 <div class="body">
-    {{ module.html_description | safe}}
+    {{ module.description | htmlformat }}
     {% if module.teaching_method %}
     <h1>Teaching Method</h1>
-    {{ module.html_teaching_method | safe }}
+    {{ module.teaching_method | htmlformat }}
     {% endif %}
 
     {% if module.prereqs or module.available_external or module.available_affiliate %}
     <h1>Pre-requisites</h1>
     {% if module.prereqs %}
-    {{ module.html_prereqs | safe}}<br/><br/>
+    {{ module.prereqs | htmlformat }}<br/><br/>
     {% endif %}
     {% if module.available_external %}
     This module is available to external students.<br/>
@@ -48,27 +48,27 @@
 
     {% if module.reading %}
     <h1>Reading</h1>
-    {{ module.reading}}
+    {{ module.reading | htmlformat }}
     {% endif %}
 
     {% if module.assessment_method %}
     <h1>Assessment</h1>
-    {{ module.assessment_method }}
+    {{ module.assessment_method | htmlformat }}
     {% endif %}
 
     {% if module.aims %}
     <h1>Aims</h1>
-    {{ module.aims }}
+    {{ module.aims | htmlformat }}
     {% endif %}
 
     {% if module.content %}
     <h1>Content</h1>
-    {{ module.content }}
+    {{ module.content | htmlformat }}
     {% endif %}
 
     {% if module.financial_contribs %}
     <h1>Financial Contributions</h1>
-    {{ module.financial_contribs }}
+    {{ module.financial_contribs | htmlformat }}
     {% endif %}
 
 

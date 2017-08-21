@@ -8,6 +8,10 @@ import os
 from application import Module, db
 
 
+class ParseError(Exception):
+    pass
+
+
 def html_output_file(module_code):
     return os.path.join(os.curdir, 'data', 'syllabus_html', module_code + '.html')
 
@@ -76,8 +80,6 @@ def parse(module_id):
     #
     #     print results
 
-    # TODO fix it so that it's actually recording the 'Available' things properly.
-
     keymap = {"Available to Affilitate Students": "set_available_affiliate",
               "Available to External Students": "set_available_external",
               "Brief Course Description": "description",
@@ -101,10 +103,16 @@ def parse(module_id):
         del output_dict["Learning Outcomes"]
 
     for k in output_dict.keys():
-        if keymap[k] is not None:
-            setattr(module, keymap[k], output_dict[k])
-        del output_dict[k]
-    print output_dict
+        try:
+            if keymap[k] is not None:
+                setattr(module, keymap[k], output_dict[k])
+            del output_dict[k]
+        except KeyError:
+            raise ParseError("Behaviour not defined for key " + k)
+    try:
+        assert output_dict == {}
+    except AssertionError:
+        raise ParseError("Behaviour not defined for keys ", output_dict.keys())
 
 
 for x in os.listdir('data/syllabus_html'):

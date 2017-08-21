@@ -18,3 +18,7 @@ Run `add_urls.py`
 Run `download_html.py` if necessary
 
 Run `parser.py`
+
+## Search terms
+
+`module = Module.query.filter_by(id=module_id).first()`

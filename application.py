@@ -1,7 +1,8 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, Markup
 from flask_sqlalchemy import SQLAlchemy
 import pandas
 import re
+import bleach
 
 app = Flask(__name__)
 
@@ -148,6 +149,16 @@ def module(module_id):
     return render_template("module.html", module=module)
 
 
+@app.template_filter('htmlformat')
+def html_format(s):
+    if s is None:
+        return None
+    s = bleach.clean(s)
+    result = re.sub(r"(GEOG)\s*([0-9]{4})", r'<a href="/module/\1\2">\1\2</a>', s)
+    result = re.sub(r"\n", r'<br/>', result)
+    return Markup(result)
+
+
 def import_from_running_list():
     # Open excel file with the list of modules
     module_list = pandas.read_excel('data/running_list.xlsx')
@@ -158,10 +169,5 @@ def import_from_running_list():
         db.session.add(module)
     db.session.commit()
 
-
-def make_html(result):
-    if result is None:
-        return None
-    # Hyperlink all Geography links
-    result = re.sub(r"(GEOG)\s*([0-9]{4})", r'<a href="/module/\1\2">\1\2</a>', result)
-    return re.sub(r"\n", r'<br/>', result)
+def make_html(s):
+    return s

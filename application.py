@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, Markup
+from flask import Flask, render_template, Markup
 from flask_sqlalchemy import SQLAlchemy
 import pandas
 import re
@@ -91,18 +91,6 @@ class Module(db.Model):
         self._readinglist_url = self.readinglist_url
 
     @property
-    def html_description(self):
-        return make_html(self.description)
-
-    @property
-    def html_prereqs(self):
-        return make_html(self.prereqs)
-
-    @property
-    def html_teaching_method(self):
-        return make_html(self.teaching_method)
-
-    @property
     def level_pretty(self):
         if self.level == "ADV":
             return "Advanced"
@@ -111,7 +99,8 @@ class Module(db.Model):
         if self.level == "FIRST":
             return "First"
 
-    def yesno_to_boolean(self, text):
+    @staticmethod
+    def yesno_to_boolean(text):
         if text == "Yes":
             return True
         elif text == "No":
@@ -119,20 +108,29 @@ class Module(db.Model):
         else:
             return None
 
-    @property
-    def set_available_affiliate(self):
-        raise NotImplementedError()
+    @staticmethod
+    def boolean_to_yesno(boolean):
+        if boolean is None:
+            return None
+        elif boolean:
+            return "Yes"
+        else:
+            return "No"
 
-    @set_available_affiliate.setter
-    def set_available_affiliate(self, text):
+    @property
+    def text_available_affiliate(self):
+        return self.boolean_to_yesno(self.available_affiliate)
+
+    @text_available_affiliate.setter
+    def text_available_affiliate(self, text):
         self.available_affiliate = self.yesno_to_boolean(text)
 
     @property
-    def set_available_external(self):
-        raise NotImplementedError()
+    def text_available_external(self):
+        return self.boolean_to_yesno(self.available_external)
 
-    @set_available_external.setter
-    def set_available_external(self, text):
+    @text_available_external.setter
+    def text_available_external(self, text):
         self.available_external = self.yesno_to_boolean(text)
 
 
@@ -143,20 +141,20 @@ def index():
 
 
 @app.route("/module/<module_id>")
-def module(module_id):
+def module_page(module_id):
     module_id = module_id.upper()
     module = Module.query.filter_by(id=module_id).first()
     return render_template("module.html", module=module)
 
 
 @app.template_filter('htmlformat')
-def html_format(s):
-    if s is None:
+def html_format(string):
+    if string is None:
         return None
-    s = bleach.clean(s)
-    result = re.sub(r"(GEOG)\s*([0-9]{4})", r'<a href="/module/\1\2">\1\2</a>', s)
-    result = re.sub(r"\n", r'<br/>', result)
-    return Markup(result)
+    string = bleach.clean(string)
+    string = re.sub(r"([A-Z]{4})\s*([0-9]{4})", r'<a href="/module/\1\2">\1\2</a>', string)
+    string = re.sub(r"\n", r'<br/>', string)
+    return Markup(string)
 
 
 def import_from_running_list():
@@ -168,6 +166,3 @@ def import_from_running_list():
         module = Module(code=x.Code, title=x.Title, level=x.Level, value=x.Value)
         db.session.add(module)
     db.session.commit()
-
-def make_html(s):
-    return s

@@ -3,7 +3,7 @@ Currently modifies the module list for that module, saves back to modules.json
 """
 from scrapy.selector import Selector
 # from pdfextract import convert_pdf_to_txt
-from collections import deque
+# from collections import deque
 import os
 from application import Module, db
 
@@ -80,8 +80,8 @@ def parse(module_id):
     #
     #     print results
 
-    keymap = {"Available to Affilitate Students": "set_available_affiliate",
-              "Available to External Students": "set_available_external",
+    keymap = {"Available to Affilitate Students": "text_available_affiliate",
+              "Available to External Students": "text_available_external",
               "Brief Course Description": "description",
               "Course Aims": "aims",
               "Course Content": "content",

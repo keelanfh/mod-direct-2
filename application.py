@@ -41,8 +41,6 @@ class Module(db.Model):
         self.level = level
         self.value = value
 
-
-
     # Return department code
     @property
     def dept_code(self):
@@ -71,7 +69,7 @@ class Module(db.Model):
                 return None
 
     @machine_url.setter
-    def machine_url(self,url):
+    def machine_url(self, url):
         self._machine_url = url
 
     @property
@@ -103,11 +101,45 @@ class Module(db.Model):
     def html_teaching_method(self):
         return make_html(self.teaching_method)
 
+    @property
+    def level_pretty(self):
+        if self.level == "ADV":
+            return "Advanced"
+        if self.level == "INTER":
+            return "Intermediate"
+        if self.level == "FIRST":
+            return "First"
+
+    def yesno_to_boolean(self, text):
+        if text == "Yes":
+            return True
+        elif text == "No":
+            return False
+        else:
+            return None
+
+    @property
+    def set_available_affiliate(self):
+        raise NotImplementedError()
+
+    @set_available_affiliate.setter
+    def set_available_affiliate(self, text):
+        self.available_affiliate = self.yesno_to_boolean(text)
+
+    @property
+    def set_available_external(self):
+        raise NotImplementedError()
+
+    @set_available_external.setter
+    def set_available_external(self, text):
+        self.available_external = self.yesno_to_boolean(text)
+
 
 @app.route("/")
 def index():
     rows = Module.query.all()
     return render_template("index.html", modules=rows)
+
 
 @app.route("/module/<module_id>")
 def module(module_id):
@@ -115,8 +147,8 @@ def module(module_id):
     module = Module.query.filter_by(id=module_id).first()
     return render_template("module.html", module=module)
 
-def import_from_running_list():
 
+def import_from_running_list():
     # Open excel file with the list of modules
     module_list = pandas.read_excel('data/running_list.xlsx')
 

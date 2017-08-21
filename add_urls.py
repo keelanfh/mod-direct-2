@@ -4,9 +4,10 @@ import pandas
 import re
 from application import Module, db
 
-class URLRule(object):
 
+class URLRule(object):
     """URLRule object, with method to return URL based on rule"""
+
     def __init__(self, info):
         self.name = info.URL_Rule
         self.Regex = info.Regex
@@ -26,6 +27,7 @@ class URLRule(object):
         else:
             output_string = ""
         return self.URL.replace("%s", output_string)
+
 
 module_list = Module.query.all()
 
@@ -48,4 +50,3 @@ for module in module_list:
             module.machine_url = rule.generate_url(module)
 
 db.session.commit()
-

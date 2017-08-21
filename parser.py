@@ -7,8 +7,10 @@ from collections import deque
 import os
 from application import Module, db
 
+
 def html_output_file(module_code):
     return os.path.join(os.curdir, 'data', 'syllabus_html', module_code + '.html')
+
 
 # Function to parse the page for a given module
 def parse(module_id):
@@ -74,13 +76,15 @@ def parse(module_id):
     #
     #     print results
 
-    keymap = {"Available to Affilitate Students": "available_affiliate",
-              "Available to External Students": "available_external",
+    # TODO fix it so that it's actually recording the 'Available' things properly.
+
+    keymap = {"Available to Affilitate Students": "set_available_affiliate",
+              "Available to External Students": "set_available_external",
               "Brief Course Description": "description",
               "Course Aims": "aims",
               "Course Content": "content",
               "Course Website": "course_website",
-              "Financial contributions":"financial_contribs",
+              "Financial contributions": "financial_contribs",
               "Form of Assessment": "assessment_method",
               "Method of Teaching": "teaching_method",
               "People": "people",
@@ -95,6 +99,7 @@ def parse(module_id):
     if "Course Aims" in output_dict and "Learning Outcomes" in output_dict:
         output_dict["Course Aims"] = "\n".join([output_dict["Learning Outcomes"]])
         del output_dict["Learning Outcomes"]
+
     for k in output_dict.keys():
         if keymap[k] is not None:
             setattr(module, keymap[k], output_dict[k])
@@ -102,13 +107,7 @@ def parse(module_id):
     print output_dict
 
 
-#
-#
-# module_list = load_modules_as_dataframe()
-#
 for x in os.listdir('data/syllabus_html'):
     parse(x.split('.')[0])
 
 db.session.commit()
-#
-# save_modules_from_dataframe(module_list)

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-registrants
+    registrants
 {% endblock %}
 
 {% block body %}
@@ -11,33 +11,34 @@ registrants
     {% for module in modules %}
         <div class="moduleboxbox">
 
-        <a class="modulebox" href="/module/{{ module.id }}">
+            <a class="modulebox" href="/module/{{ module.id }}">
 
-    <div class="title_modulelist">
-        <b>{{ module.id }} {{ module.title }}</b>
-    </div>
+                <div class="title_modulelist">
+                    <b>{{ module.id }} {{ module.title }}</b>
+                </div>
 
-    <div class="title_modulelist">
-    <img src="https://img.shields.io/badge/credits-{{ module.value }}-blue.svg" height="25">
+                <div class="title_modulelist">
+                    <img src="https://img.shields.io/badge/credits-{{ module.value }}-blue.svg" height="25">
 
-<img src="https://img.shields.io/badge/level-{{ module.level_pretty }}-{% if module.level == "ADV" %}red{% endif %}{% if module.level == "INTER" %}orange{% endif %}{% if module.level == "FIRST" %}green{% endif %}.svg" height="25">
-{% if module.term %}
-<img src="https://img.shields.io/badge/term-{{ module.term }}-lightgrey.svg" height="25"/>
-{% endif %}
+                    <img src="https://img.shields.io/badge/level-{{ module.level_pretty }}-{% if module.level == "ADV" %}red{% endif %}{% if module.level == "INTER" %}orange{% endif %}{% if module.level == "FIRST" %}green{% endif %}.svg"
+                         height="25">
+                    {% if module.term %}
+                        <img src="https://img.shields.io/badge/term-{{ module.term }}-lightgrey.svg" height="25"/>
+                    {% endif %}
 
-    </div>
+                </div>
 
-    <div class="body">
-        {% if module.description %}
-    {{ module.desc_short }}
-    {% else %}
-    No description is available for this module.
-    {% endif %}
+                <div class="body">
+                    {% if module.description %}
+                        {{ module.desc_short }}
+                    {% else %}
+                        No description is available for this module.
+                    {% endif %}
 
 
-    </div>
-        </a>
+                </div>
+            </a>
         </div>
-    <br/>
+        <br/>
     {% endfor %}
 {% endblock %}

@@ -6,86 +6,88 @@
 
 {% block body %}
     <div class="moduleboxbox">
-    <div class="modulebox">
+        <div class="modulebox">
 
-<div class="title">{{ module.id }} <br/>{{ module.title }}</div>
+            <div class="title">{{ module.id }} <br/>{{ module.title }}</div>
 
-<div class="menu">
-<img src="https://img.shields.io/badge/credits-{{ module.value }}-blue.svg" height="30"/>
-<img src="https://img.shields.io/badge/level-{{ module.level_pretty }}-{% if module.level == "ADV" %}red{% endif %}{% if module.level == "INTER" %}orange{% endif %}{% if module.level == "FIRST" %}green{% endif %}.svg" height="30">
-{% if module.term %}
-<img src="https://img.shields.io/badge/term-{{ module.term }}-lightgrey.svg" height="30"/>
-{% endif %}
-{% if module.people %}
-    <br/>
-{{ module.people }}
-{% endif %}
+            <div class="menu">
+                <img src="https://img.shields.io/badge/credits-{{ module.value }}-blue.svg" height="30"/>
+                <img src="https://img.shields.io/badge/level-{{ module.level_pretty }}-{% if module.level == "ADV" %}red{% endif %}{% if module.level == "INTER" %}orange{% endif %}{% if module.level == "FIRST" %}green{% endif %}.svg"
+                     height="30">
+                {% if module.term %}
+                    <img src="https://img.shields.io/badge/term-{{ module.term }}-lightgrey.svg" height="30"/>
+                {% endif %}
+                {% if module.people %}
+                    <br/>
+                    {{ module.people }}
+                {% endif %}
 
-</div>
-<div class="menu">
-<a href = "{{ module.url }}">Syllabus</a>
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href = "{{ module.moodle_url}}">Moodle</a>
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href = "{{ module.exams_url}}">Exam Papers</a>
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href = "{{ module.readinglist_url}}">Reading List</a>
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href = "{{ module.timetable_url}}">Timetable</a>
-</div>
+            </div>
+            <div class="menu">
+                <a href="{{ module.url }}">Syllabus</a>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{{ module.moodle_url }}">Moodle</a>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{{ module.exams_url }}">Exam Papers</a>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{{ module.readinglist_url }}">Reading List</a>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <a href="{{ module.timetable_url }}">Timetable</a>
+            </div>
 
-<br/>
+            <br/>
 
-    <div class="body">
-    {% if module.description %}
-    {{ module.description | htmlformat }}
-    {% else %}
-    No description is available for this module.
-    {% endif %}
-    {% if module.teaching_method %}
-    <h1>Teaching Method</h1>
-    {{ module.teaching_method | htmlformat }}
-    {% endif %}
+            <div class="body">
+                {% if module.description %}
+                    {{ module.description | htmlformat }}
+                {% else %}
+                    No description is available for this module.
+                {% endif %}
+                {% if module.teaching_method %}
+                    <h1>Teaching Method</h1>
+                    {{ module.teaching_method | htmlformat }}
+                {% endif %}
 
-    {% if module.prereqs or module.available_external or module.available_affiliate %}
-    <h1>Pre-requisites</h1>
-    {% if module.prereqs %}
-    {{ module.prereqs | htmlformat }}<br/><br/>
-    {% endif %}
-    {% if module.available_external %}
-    This module may be available to external students.<br/>
-    {% endif %}
-    {% if module.available_affiliate %}
-    This module is available to affiliate students.<br/>
-    {% endif %}
-    {% endif %}
+                {% if module.prereqs or module.available_external or module.available_affiliate %}
+                    <h1>Pre-requisites</h1>
+                    {% if module.prereqs %}
+                        {{ module.prereqs | htmlformat }}<br/><br/>
+                    {% endif %}
+                    {% if module.available_external %}
+                        This module may be available to external students.<br/>
+                    {% endif %}
+                    {% if module.available_affiliate %}
+                        This module is available to affiliate students.<br/>
+                    {% endif %}
+                {% endif %}
 
-    {% if module.reading %}
-    <h1>Reading</h1>
-    {{ module.reading | htmlformat }}
-    {% endif %}
+                {% if module.reading %}
+                    <h1>Reading</h1>
+                    {{ module.reading | htmlformat }}
+                {% endif %}
 
-    {% if module.assessment_method %}
-    <h1>Assessment</h1>
-    {{ module.assessment_method | htmlformat }}
-    {% endif %}
+                {% if module.assessment_method %}
+                    <h1>Assessment</h1>
+                    {{ module.assessment_method | htmlformat }}
+                {% endif %}
 
-    {% if module.aims %}
-    <h1>Aims</h1>
-    {{ module.aims | htmlformat }}
-    {% endif %}
+                {% if module.aims %}
+                    <h1>Aims</h1>
+                    {{ module.aims | htmlformat }}
+                {% endif %}
 
-    {% if module.content %}
-    <h1>Content</h1>
-    {{ module.content | htmlformat }}
-    {% endif %}
+                {% if module.content %}
+                    <h1>Content</h1>
+                    {{ module.content | htmlformat }}
+                {% endif %}
 
-    {% if module.financial_contribs %}
-    <h1>Financial Contributions</h1>
-    {{ module.financial_contribs | htmlformat }}
-    {% endif %}
+                {% if module.financial_contribs %}
+                    <h1>Financial Contributions</h1>
+                    {{ module.financial_contribs | htmlformat }}
+                {% endif %}
 
-    </div></div>
-</div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

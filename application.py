@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Markup
 from flask_sqlalchemy import SQLAlchemy
+from flask.ext.restless import APIManager
 import pandas
 import re
 import bleach
@@ -177,6 +178,9 @@ def module_page(module_id):
     module_id = module_id.upper()
     module = Module.query.filter_by(id=module_id).first()
     return render_template("module.html", module=module)
+
+manager = APIManager(app, flask_sqlalchemy_db=db)
+manager.create_api(Module, exclude_columns=['_machine_url'], methods=['GET'])
 
 
 @app.template_filter('htmlformat')

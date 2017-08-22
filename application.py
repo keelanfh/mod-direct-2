@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Markup
+from flask import Flask, render_template, Markup, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.restless import APIManager
 import pandas
@@ -177,6 +177,8 @@ def index():
 def module_page(module_id):
     module_id = module_id.upper()
     module = Module.query.filter_by(id=module_id).first()
+    if module is None:
+        return redirect(url_for(".index"))
     return render_template("module.html", module=module)
 
 manager = APIManager(app, flask_sqlalchemy_db=db)

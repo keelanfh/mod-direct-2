@@ -7,7 +7,19 @@
 {% block body %}
 
 <div class="title">{{ module.id }} <br/>{{ module.title }}</div>
-<br/>
+
+<div class="menu">
+<img src="https://img.shields.io/badge/credits-{{ module.value }}-blue.svg" height="30"/>
+<img src="https://img.shields.io/badge/level-{{ module.level_pretty }}-{% if module.level == "ADV" %}red{% endif %}{% if module.level == "INTER" %}orange{% endif %}{% if module.level == "FIRST" %}green{% endif %}.svg" height="30">
+{% if module.term %}
+<img src="https://img.shields.io/badge/term-{{ module.term }}-lightgrey.svg" height="30"/>
+{% endif %}
+{% if module.people %}
+    <br/>
+{{ module.people }}
+{% endif %}
+
+</div>
 <div class="menu">
 <a href = "{{ module.url }}">Syllabus</a>
 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -19,20 +31,7 @@
 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href = "{{ module.timetable_url}}">Timetable</a>
 </div>
-<div class="menu">
-    {{ module.value }} credits
-    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    {{ module.level_pretty }}
-    {% if module.term %}
-    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    Term {{ module.term }}
-    {% endif %}
-    {% if module.people %}
-    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    {{ module.people }}
-    {% endif %}
 
-</div>
 <br/>
 
     <div class="body">

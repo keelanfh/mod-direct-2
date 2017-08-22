@@ -16,18 +16,31 @@
 <a href = "{{ module.exams_url}}">Exam Papers</a>
 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href = "{{ module.readinglist_url}}">Reading List</a>
+&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href = "{{ module.timetable_url}}">Timetable</a>
 </div>
 <div class="menu">
     {{ module.value }} credits
     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     {{ module.level_pretty }}
+    {% if module.term %}
     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     Term {{ module.term }}
+    {% endif %}
+    {% if module.people %}
     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     {{ module.people }}
+    {% endif %}
+
 </div>
-<div class="body">
+<br/>
+
+    <div class="body">
+    {% if module.description %}
     {{ module.description | htmlformat }}
+    {% else %}
+    No description is available for this module.
+    {% endif %}
     {% if module.teaching_method %}
     <h1>Teaching Method</h1>
     {{ module.teaching_method | htmlformat }}
@@ -39,7 +52,7 @@
     {{ module.prereqs | htmlformat }}<br/><br/>
     {% endif %}
     {% if module.available_external %}
-    This module is available to external students.<br/>
+    This module may be available to external students.<br/>
     {% endif %}
     {% if module.available_affiliate %}
     This module is available to affiliate students.<br/>

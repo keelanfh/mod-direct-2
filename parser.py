@@ -22,7 +22,7 @@ def parse(module_id):
     output_dict = {}
 
     # TODO sort this out, it's messy. Might require object creation or something.
-    if module_id[:4] == 'GEOG':
+    if module.dept_code == 'GEOG':
         # TODO remove this
         return
 
@@ -55,8 +55,7 @@ def parse(module_id):
                     raise AssertionError()
             module.url_parsed = True
 
-    elif module_id[:4] in ["PSYC", "ANAT", "BIOC", "BIOL", "BIOS", "CELL", "NEUR", "PHAR", "PHOL", "PALS", "PHAY"]:
-        return
+    elif module.dept_code in ["PSYC", "ANAT", "BIOC", "BIOL", "BIOS", "CELL", "NEUR", "PHAR", "PHOL", "PALS", "PHAY"]:
 
         with open(html_output_file(module_id), 'r') as f:
             text = f.read()
@@ -69,8 +68,8 @@ def parse(module_id):
             if len(extracted) == 2:
                 output_dict[extracted[0].replace(":", "")] = extracted[1]
 
-    elif module_id[:4] == "ARCL":
-
+    elif module.dept_code == "ARCL":
+        return
         with open(html_output_file(module_id), 'r') as f:
             text = f.read()
             s = Selector(text=text)
@@ -137,7 +136,7 @@ def parse(module_id):
               "Key skills provided by module": None,
               "Module assessment": "assessment_method",
               "Notes": None,
-              "Taking this module as an option?": None,
+              "Taking this module as an option?": "text_available_external",
               "Link to virtual learning environment (registered students only)": None,
               "Last updated": None,
               "Module timetable": None

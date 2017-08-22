@@ -22,3 +22,8 @@ Run `parser.py`
 ## Search terms
 
 `module = Module.query.filter_by(id=module_id).first()`
+`modules = Module.query.all()`
+
+## Useful things you can do
+
+`df = pandas.read_sql('modules', 'sqlite:///modules.db')`

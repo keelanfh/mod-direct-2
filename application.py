@@ -82,6 +82,10 @@ class Module(db.Model):
     def readinglist_url(self):
         return "http://readinglists.ucl.ac.uk/search.html?q=" + self.id
 
+    @property
+    def timetable_url(self):
+        return "https://timetable.ucl.ac.uk/tt/moduleTimet.do?firstReq=Y&moduleId=" + self.id
+
     def update_urls(self):
         self._moodle_url = self.moodle_url
         self._exams_url = self.exams_url
@@ -98,12 +102,43 @@ class Module(db.Model):
 
     @staticmethod
     def yesno_to_boolean(text):
-        if text == "Yes":
-            return True
-        elif text == "No":
-            return False
-        else:
+        trues = ["Yes", "yes", "Check with organiser that places are available.",
+                 "Module numbers will be capped at 120 students",
+                 "Contact organiser for availability of places.", "Contact the course organiser",
+                 "Contact module organiser Professor Evans", "Contact organizer to check suitability.",
+                 "Contact module organiser", "POSS 2", "Very limited number of places",
+                 "Contact organizer to check availability.", "Affiliate students with relevant background.",
+                 "The maximum number of places on the course is 120.", "Contact module organiser for more details.",
+                 "Contact organiser for details.", "For more details contact module organiser.",
+                 "Contact module organiser.", "Preference may be given to those with A level chem",
+                 "Usually Human Sciences and Natural Sciences only",
+                 "Not without pre-requisites and approval, see above",
+                 "Only with appropriate background and approval (see",
+                 "With prerequisittes and approval (see notes)"]
+        falses = ["No", "no", "Not available as an option.", "This module is not available as an option.",
+                  "iBSc Neuroscience, Physiology, Phys/Phar students", "Year 3 & intercalated BSc Neuroscience student",
+                  "This module is not usually available as an electiv", "This module is unavailable as an elective.",
+                  "This version is for Term 1 Affiliate students only",
+                  "Only open to affiliate students here for Term 1 on",
+                  "no (only for Psychology students)", "for Term 1 Affiliate students only",
+                  "only for Term 1 Affiliate Students", "Only Term 1 Affiliates",
+                  "Term 1 Affiliate students only", "for Term 1 Affiliate Students only",
+                  "for Term 1/Full-Year Psychology Affiliates", "for Term 2/Full-Year Psychology Affiliates",
+                  "for Term 2/Full-Year Psychology Affiliates only"]
+        nones = ["This module is mandatory.", "15376", "N/A", "Only open to selected programmes (see note)",
+                 "Only open to selected programmes (see notes", "Only available to particular programmes (see notes",
+                 "Only open to specific programmes(see notes)", "Only open to specific programmes (see notes)"]
+        if text is None:
             return None
+        text = text.strip()
+        if text in trues:
+            return True
+        elif text in falses:
+            return False
+        elif text in nones:
+            return None
+        else:
+            raise NotImplementedError(text + " has no defined mapping to a boolean.")
 
     @staticmethod
     def boolean_to_yesno(boolean):

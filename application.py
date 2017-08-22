@@ -166,6 +166,14 @@ class Module(db.Model):
     def text_available_external(self, text):
         self.available_external = self.yesno_to_boolean(text)
 
+    @property
+    def desc_short(self):
+        if len(self.description) >= 250:
+            desc = self.description[:250]
+            desc = desc.rsplit(" ", 1)[0] + "..."
+            return desc
+        return self.description
+
 
 @app.route("/")
 def index():
@@ -180,6 +188,7 @@ def module_page(module_id):
     if module is None:
         return redirect(url_for(".index"))
     return render_template("module.html", module=module)
+
 
 manager = APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(Module, exclude_columns=['_machine_url'], methods=['GET'])

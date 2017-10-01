@@ -106,6 +106,9 @@ class Module(db.Model):
 
     @staticmethod
     def yesno_to_boolean(text):
+
+        # TODO change this - it shouldn't raise an error.
+
         trues = ["Yes", "yes", "Check with organiser that places are available.",
                  "Module numbers will be capped at 120 students",
                  "Contact organiser for availability of places.", "Contact the course organiser",
@@ -118,7 +121,8 @@ class Module(db.Model):
                  "Usually Human Sciences and Natural Sciences only",
                  "Not without pre-requisites and approval, see above",
                  "Only with appropriate background and approval (see",
-                 "With prerequisittes and approval (see notes)"]
+                 "With prerequisittes and approval (see notes)",
+                 "Module numbers will be capped at 100 students"]
         falses = ["No", "no", "Not available as an option.", "This module is not available as an option.",
                   "iBSc Neuroscience, Physiology, Phys/Phar students", "Year 3 & intercalated BSc Neuroscience student",
                   "This module is not usually available as an electiv", "This module is unavailable as an elective.",

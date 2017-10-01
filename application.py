@@ -36,6 +36,9 @@ class Module(db.Model):
     financial_contribs = db.Column(db.Text)
     url = db.Column(db.Text)
     _machine_url = db.Column(db.Text)
+    students_2016 = db.Column(db.Integer)
+    students_2015 = db.Column(db.Integer)
+    students_2014 = db.Column(db.Integer)
 
     def __init__(self, code, title, level, value):
         self.id = code.upper()
@@ -168,11 +171,29 @@ class Module(db.Model):
 
     @property
     def desc_short(self):
+        """Shortens the description. If the description is over 250 chars, it will cut it down to 250,
+         strip to the last space and add an ellipsis."""
         if len(self.description) >= 250:
             desc = self.description[:250]
             desc = desc.rsplit(" ", 1)[0] + "..."
             return desc
         return self.description
+
+    @property
+    def students_average(self):
+        y = [x for x in [self.students_2016, self.students_2015, self.students_2014] if x]
+        try:
+            return (sum(y)//len(y))
+        except ZeroDivisionError:
+            return 0
+
+
+def module_row(module_id):
+    module_id = module_id.upper()
+    module = Module.query.filter_by(id=module_id).first()
+    if module is None:
+        return None
+    return module
 
 
 @app.route("/")
@@ -183,11 +204,28 @@ def index():
 
 @app.route("/module/<module_id>")
 def module_page(module_id):
-    module_id = module_id.upper()
-    module = Module.query.filter_by(id=module_id).first()
+    module = module_row(module_id)
     if module is None:
         return redirect(url_for(".index"))
-    return render_template("module.html", module=module)
+    else:
+        return render_template("module.html", module=module)
+
+
+@app.route("/module/<module_id>/<goto>")
+def syllabus(module_id, goto):
+    module = module_row(module_id)
+    if module is None:
+        return redirect(url_for(".index"))
+    elif goto == "timetable":
+        return redirect(module.timetable_url)
+    elif goto == "moodle":
+        return redirect(module.moodle_url)
+    elif goto == "reading-list":
+        return redirect(module.readinglist_url)
+    elif goto == "syllabus":
+        return redirect(module.url)
+    else:
+        return redirect(url_for(".index"))
 
 
 manager = APIManager(app, flask_sqlalchemy_db=db)

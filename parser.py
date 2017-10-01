@@ -24,7 +24,7 @@ def parse(module_id):
     # TODO sort this out, it's messy. Might require object creation or something.
     if module.dept_code == 'GEOG':
         # TODO remove this
-        return
+
 
         with open(html_output_file(module_id), 'r') as f:
             text = f.read()
@@ -69,7 +69,7 @@ def parse(module_id):
                 output_dict[extracted[0].replace(":", "")] = extracted[1]
 
     elif module.dept_code == "ARCL":
-        return
+
         with open(html_output_file(module_id), 'r') as f:
             text = f.read()
             s = Selector(text=text)
@@ -166,3 +166,5 @@ for x in os.listdir('data/syllabus_html'):
     parse(x.split('.')[0])
 
 db.session.commit()
+
+from matplotlib.axis import Axis

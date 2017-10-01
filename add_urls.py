@@ -1,18 +1,18 @@
 """Adds URLs to the data, based on the URL_Rules.xlsx file
 """
-import pandas
 import re
 from application import Module, db
+import unicodecsv as csv
 
 
 class URLRule(object):
     """URLRule object, with method to return URL based on rule"""
 
     def __init__(self, info):
-        self.name = info.URL_Rule
-        self.Regex = info.Regex
-        self.URL = info.URL
-        self.Code_Req = info.Code_Req
+        self.name = info["URL_Rule"]
+        self.Regex = info["Regex"]
+        self.URL = info["URL"]
+        self.Code_Req = info["Code_Req"]
 
     # Return a URL based on the substitution rules set out in the sheet
     def generate_url(self, module):
@@ -31,7 +31,13 @@ class URLRule(object):
 
 module_list = Module.query.all()
 
-human_url_rules = [URLRule(x) for x in pandas.read_excel('URL_Rules.xlsx', 'Human').itertuples()]
+with open("Human_URL_Rules.csv", 'r') as f:
+    dr = csv.DictReader(f)
+    rules = [x for x in dr]
+
+
+human_url_rules = [URLRule(x) for x in rules]
+print rules
 
 for module in module_list:
     for rule in human_url_rules:
@@ -40,7 +46,12 @@ for module in module_list:
         if m:
             module.url = rule.generate_url(module)
 
-machine_url_rules = [URLRule(x) for x in pandas.read_excel('URL_Rules.xlsx', 'Machine').itertuples()]
+with open("Machine_URL_Rules.csv", 'r') as f:
+    dr = csv.DictReader(f)
+    rules = [x for x in dr]
+
+print rules
+machine_url_rules = [URLRule(x) for x in rules]
 
 for module in module_list:
     for rule in machine_url_rules:

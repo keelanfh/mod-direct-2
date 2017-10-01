@@ -1,8 +1,13 @@
-from application import *
-from add_urls import add_urls
-import os, urllib, re
+import os
+import urllib
+import pandas
+
 from scrapy.selector import Selector
+
+from add_urls import add_urls
+from application import *
 from parser import parse_all
+
 
 def import_from_running_list():
     # Open excel file with the list of modules
@@ -36,7 +41,7 @@ def download_html():
 
     for url in urls:
         if url['code'] + '.html' not in files_already:
-            print url
+            print(url)
             urllib.urlretrieve(url["url"], html_output_file(url["code"]))
 
 
@@ -55,7 +60,7 @@ def add_examboard_data():
             rowtext = [x.xpath("text()").extract()[0] if x.xpath("text()").extract() else u"0" for x in cells]
             if rowtext:
                 if re.match(r"[A-Z]{4}[0-9]{4}", rowtext[0]):
-                    print rowtext
+                    print(rowtext)
                     module = Module.query.filter_by(id=rowtext[0]).first()
                     if module:
                         module.students_2016 = rowtext[2]

@@ -36,7 +36,6 @@ def add_urls():
         dr = csv.DictReader(f)
         rules = [x for x in dr]
 
-
     human_url_rules = [URLRule(x) for x in rules]
 
     for module in module_list:

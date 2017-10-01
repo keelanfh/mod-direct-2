@@ -1,6 +1,6 @@
 # Module Directory
 
-Setup required:
+## Setup
 
 Required files: `running_list.xlsx`, `boe_natsci.htm` and `boe_sci.htm`
 

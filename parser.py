@@ -120,27 +120,37 @@ def parse(module_id):
               "Reading": "reading",
               "Programme Term Running": "term",
               "Programme Year Running": "programme_year",
+              "Module organiser (provisional)": "people",
+              "Module assessment": "assessment_method",
+              "Taking this module as an option?": "text_available_external",
+              "Module prerequisites": "prereqs",
+              "Module outline": "description",
+              "Module aims": "aims",
+
+              # The following information is already available from the Running List/elsewhere
               "Unit Value": None,
               "Academic Year": None,
               "Module code": None,
               "Title": None,
               "Credit value": None,
+              "Module timetable": None,
+
+              # The following information is not currently being used
               "Division": None,
-              "Module organiser (provisional)": "people",
               "Organiser's location": None,
+
+              # Will probably pull this from UCL API
               "Organiser's email": None,
               "Available for students in Year(s)": None,
-              "Module prerequisites": "prereqs",
-              "Module outline": "description",
-              "Module aims": "aims",
+
+              # The following should probably be integrated somehow
               "Module objectives": None,
               "Key skills provided by module": None,
-              "Module assessment": "assessment_method",
               "Notes": None,
-              "Taking this module as an option?": "text_available_external",
-              "Link to virtual learning environment (registered students only)": None,
               "Last updated": None,
-              "Module timetable": None
+
+              # Substitute for Moodle link? Would require a little database refactoring
+              "Link to virtual learning environment (registered students only)": None
               }
 
     if "Course Aims" in output_dict and "Learning Outcomes" in output_dict:

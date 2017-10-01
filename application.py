@@ -188,7 +188,7 @@ class Module(db.Model):
     def students_average(self):
         y = [x for x in [self.students_2016, self.students_2015, self.students_2014] if x]
         try:
-            return (sum(y)//len(y))
+            return sum(y)//len(y)
         except ZeroDivisionError:
             return 0
 

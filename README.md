@@ -4,9 +4,7 @@ Setup required:
 
 Required files: `running_list.xlsx`, `boe_natsci.htm` and `boe_sci.htm`
 
-To add the data to the database:
-
-Run `parser.py`
+Run `setup.py`
 
 ## Start Flask Webserver
 

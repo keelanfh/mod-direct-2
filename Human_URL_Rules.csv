@@ -1,0 +1,47 @@
+URL_Rule,Regex,URL,Code_Req
+HPSC,HPSC.*,https://www.ucl.ac.uk/sts/module-information/hpsc/2016-17/%s-syllabus-2016-17,lower
+GEOG,GEOG.*,http://www.geog.ucl.ac.uk/study/undergraduate/current-students/modules/%s,lower
+MATH (Y4),MATHM.*,http://www.ucl.ac.uk/maths/courses/undergraduates/modules/year4/year4_syllabuses/%s,nums
+MATH (Y3),MATH3.*,https://www.ucl.ac.uk/maths/courses/undergraduates/modules/year3/year3_syllabuses/%s,nums
+MATH (Y2),MATH(2|7).*,http://www.ucl.ac.uk/maths/courses/undergraduates/modules/year2/year2_syllabuses/%s,nums
+MATH (Y1),MATH1.*,http://www.ucl.ac.uk/maths/courses/undergraduates/modules/year1/year1_syllabuses/%s,nums
+PHAS (Y1),PHAS1.*,http://www.ucl.ac.uk/physics-astronomy/intranet/current-students/undergraduate/1st-year-module-descriptions-17-18,
+PHAS (Y2),PHAS2.*,http://www.ucl.ac.uk/physics-astronomy/intranet/current-students/undergraduate/2nd-year-module-descriptions-17-18,
+PHAS (Y3),PHAS3.*,http://www.ucl.ac.uk/physics-astronomy/intranet/current-students/undergraduate/3rd-year-module-descriptions-17-18,
+PHAS (Y4),PHAS4.*,http://www.ucl.ac.uk/physics-astronomy/intranet/current-students/undergraduate/4th-year-module-descriptions-17-18,
+LC,LC.*,http://www.ucl.ac.uk/clie/CourseUnits/Documents/CourseUnitsStudentHandbook.pdf,
+ANTH,ANTH.*,http://www.ucl.ac.uk/anthropology/courses/ug/%s,upper
+ARCL,ARCL.*,http://www.ucl.ac.uk/archaeology/studying/undergraduate/courses/%s,upper
+BENG,BENG.*,http://www.ucl.ac.uk/biochemeng/prospective-students/course_modules/%s,lower
+BENV,BENV2047,http://www.engineering.ucl.ac.uk/current-students/files/2015/06/BENV2047-Energy-Context-Module-Descriptor.pdf,
+CEGE1008,CEGE1008,https://www.ucl.ac.uk/basc/current/pathways/sciences-engineering/cege1008,
+ECON,ECON.*,http://www.ucl.ac.uk/economics/study/undergraduate/module-list/%s,lower
+SEHI,SEHI.*,http://www.ucl.ac.uk/ssees/undergraduate-courses/ug_course_outlines_1516/hs_%s,upper
+STEP,STEP.*,http://www.ucl.ac.uk/steapp/study/electives,
+ECON1604,ECON1604,http://www.ucl.ac.uk/maths/courses/undergraduates/modules/year1/year1_syllabuses/econ1604,
+MATH (Ancillary),MATH(6.*|1403),https://www.ucl.ac.uk/maths/courses/undergraduates/modules/general-ancillary/general_ancillary_syllabuses/%s,nums
+PSYC,PSYC.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+ANAT,ANAT.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+BIOC,BIOC.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+BIOL,BIOL.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+NEUR,NEUR.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+PHAR,PHAR.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+PHOL,PHOL.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+BIOS,BIOS.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+CELL,CELL.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+NEUR,NEUR.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+PALS,PALS.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+PHAY,PHAY.*,https://www.ucl.ac.uk/lifesciences-faculty-php/courses/viewcourse.php?coursecode=%s,upper
+GEOL,GEOL.*,http://www.ucl.ac.uk/earth-sciences/study/undergraduate/modules/%s,lower
+BASC1001,BASC1001,http://www.ucl.ac.uk/basc/current/core/atk,
+BASC1002,BASC1002,http://www.ucl.ac.uk/basc/current/core/irm,
+BASC1003,BASC1003,http://www.ucl.ac.uk/basc/current/core/qm,
+BASC (IE),BASC2.*,http://www.ucl.ac.uk/basc/current/core/ie/%s,lower
+BASC2001,BASC2001,http://www.ucl.ac.uk/basc/current/core/ol,
+BASC2002,BASC2002,http://www.ucl.ac.uk/basc/current/core/qm2,
+BASC2003,BASC2003,http://www.ucl.ac.uk/basc/current/core/qt,
+BASC3001,BASC3001,http://www.ucl.ac.uk/basc/current/core/dissertation,
+BASC3002,BASC3002,http://www.ucl.ac.uk/basc/current/core/dissertation,
+ANTH1017,ANTH(1017|7034),http://www.ucl.ac.uk/basc/current/pathways/cultures/%s,upper
+BASC2004,BASC2004,http://www.ucl.ac.uk/basc/current/pathways/cultures/%s,lower
+PHIL,PHIL.*,http://www.ucl.ac.uk/philosophy/current-students/ba-programmes/ba-modules,

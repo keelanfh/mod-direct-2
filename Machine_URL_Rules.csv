@@ -1,0 +1,2 @@
+URL_Rule,Regex,URL,Code_Req
+GEOG,GEOG.*,https://www.ucl.ac.uk/geography/open-pages/mdc-module-view.php?module=%s,upper

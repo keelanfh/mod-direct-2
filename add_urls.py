@@ -29,35 +29,36 @@ class URLRule(object):
         return self.URL.replace("%s", output_string)
 
 
-module_list = Module.query.all()
+def add_urls():
+    module_list = Module.query.all()
 
-with open("Human_URL_Rules.csv", 'r') as f:
-    dr = csv.DictReader(f)
-    rules = [x for x in dr]
+    with open("Human_URL_Rules.csv", 'r') as f:
+        dr = csv.DictReader(f)
+        rules = [x for x in dr]
 
 
-human_url_rules = [URLRule(x) for x in rules]
-print rules
+    human_url_rules = [URLRule(x) for x in rules]
+    print rules
 
-for module in module_list:
-    for rule in human_url_rules:
-        # If the regex matches, make the
-        m = re.match(rule.Regex, module.id)
-        if m:
-            module.url = rule.generate_url(module)
+    for module in module_list:
+        for rule in human_url_rules:
+            # If the regex matches, make the
+            m = re.match(rule.Regex, module.id)
+            if m:
+                module.url = rule.generate_url(module)
 
-with open("Machine_URL_Rules.csv", 'r') as f:
-    dr = csv.DictReader(f)
-    rules = [x for x in dr]
+    with open("Machine_URL_Rules.csv", 'r') as f:
+        dr = csv.DictReader(f)
+        rules = [x for x in dr]
 
-print rules
-machine_url_rules = [URLRule(x) for x in rules]
+    print rules
+    machine_url_rules = [URLRule(x) for x in rules]
 
-for module in module_list:
-    for rule in machine_url_rules:
-        # If the regex matches, make the
-        m = re.match(rule.Regex, module.id)
-        if m:
-            module.machine_url = rule.generate_url(module)
+    for module in module_list:
+        for rule in machine_url_rules:
+            # If the regex matches, make the
+            m = re.match(rule.Regex, module.id)
+            if m:
+                module.machine_url = rule.generate_url(module)
 
-db.session.commit()
+    db.session.commit()

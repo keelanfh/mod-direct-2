@@ -18,6 +18,9 @@ def import_from_running_list():
 def download_html():
     modules = Module.query.all()
 
+    if "syllabus_html" not in os.listdir("data"):
+        os.mkdir(os.path.join("data", "syllabus_html"))
+
     files_already = os.listdir(os.path.join("data", "syllabus_html"))
 
     query_departments = ["PSYC", "ANAT", "BIOC", "BIOL", "BIOS", "CELL", "NEUR", "PHAR", "PHOL", "PALS", "PHAY", "ARCL"]

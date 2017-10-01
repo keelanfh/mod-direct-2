@@ -17,14 +17,15 @@
                 {% if module.term %}
                     <img src="https://img.shields.io/badge/term-{{ module.term }}-lightgrey.svg" height="30"/>
                 {% endif %}
-                {% if module.people %}
-                    <br/>
-                    {{ module.people }}
-                {% endif %}
                 {% if module.students_average %}
                     <img src="https://img.shields.io/badge/students-{{ module.students_average }}-lightgrey.svg"
                          height="30"/>
                 {% endif %}
+                {% if module.people %}
+                    <br/>
+                    {{ module.people }}
+                {% endif %}
+
 
             </div>
             <div class="menu">

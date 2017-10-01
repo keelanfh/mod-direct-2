@@ -1,5 +1,5 @@
 import os
-import urllib
+import urllib.request
 import pandas
 
 from scrapy.selector import Selector
@@ -42,7 +42,7 @@ def download_html():
     for url in urls:
         if url['code'] + '.html' not in files_already:
             print(url)
-            urllib.urlretrieve(url["url"], html_output_file(url["code"]))
+            urllib.request.urlretrieve(url["url"], html_output_file(url["code"]))
 
 
 def add_examboard_data():
@@ -57,7 +57,7 @@ def add_examboard_data():
         rows = s.xpath("//ol/ol/table/tbody/tr")
         for row in rows:
             cells = row.xpath("td")
-            rowtext = [x.xpath("text()").extract()[0] if x.xpath("text()").extract() else u"0" for x in cells]
+            rowtext = [x.xpath("text()").extract()[0] if x.xpath("text()").extract() else "0" for x in cells]
             if rowtext:
                 if re.match(r"[A-Z]{4}[0-9]{4}", rowtext[0]):
                     print(rowtext)
@@ -82,3 +82,4 @@ if __name__ == "__main__":
     add_urls()
     download_html()
     parse_all()
+    download_html()

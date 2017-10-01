@@ -123,7 +123,8 @@ class Module(db.Model):
                  "Only with appropriate background and approval (see",
                  "With prerequisittes and approval (see notes)",
                  "Module numbers will be capped at 100 students",
-                 "Available to 3rd year students on any UCL programm"]
+                 "Available to 3rd year students on any UCL programm",
+                 "The maximum number of places on the module is 96."]
         falses = ["No", "no", "Not available as an option.", "This module is not available as an option.",
                   "iBSc Neuroscience, Physiology, Phys/Phar students", "Year 3 & intercalated BSc Neuroscience student",
                   "This module is not usually available as an electiv", "This module is unavailable as an elective.",

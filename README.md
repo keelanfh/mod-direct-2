@@ -1,23 +1,17 @@
-# mod-direct-2
-
+# Module Directory
 
 Setup required:
 
-1. run `export FLASK_APP=application.py`
-2. run `flask run`
-3. Flask is now running at given address
+Required files: `running_list.xlsx`, `boe_natsci.htm` and `boe_sci.htm`
 
 To add the data to the database:
 
-`from application import *`
-
-`import_from_running_list()`
-
-Run `add_urls.py`
-
-Run `download_html.py` if necessary
-
 Run `parser.py`
+
+## Start Flask Webserver
+
+1. `export FLASK_APP=application.py`
+2. `flask run`
 
 ## Search terms
 

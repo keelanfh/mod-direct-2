@@ -240,14 +240,3 @@ def html_format(string):
     string = re.sub(r"([A-Z]{4})\s*([0-9]{4})", r'<a href="/module/\1\2">\1\2</a>', string)
     string = re.sub(r"\n", r'<br/>', string)
     return Markup(string)
-
-
-def import_from_running_list():
-    # Open excel file with the list of modules
-    module_list = pandas.read_excel('data/running_list.xlsx')
-
-    # Create a Module object containing this information, then output to dict
-    for x in module_list.itertuples():
-        module = Module(code=x.Code, title=x.Title, level=x.Level, value=x.Value)
-        db.session.add(module)
-    db.session.commit()

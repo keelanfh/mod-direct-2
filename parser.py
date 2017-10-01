@@ -105,6 +105,8 @@ def parse(module_id):
     #
     #     print results
 
+    # TODO move this off into a CSV
+
     keymap = {"Available to Affilitate Students": "text_available_affiliate",
               "Available to External Students": "text_available_external",
               "Brief Course Description": "description",
@@ -162,9 +164,8 @@ def parse(module_id):
         raise ParseError("Behaviour not defined for keys ", output_dict.keys())
 
 
-for x in os.listdir('data/syllabus_html'):
-    parse(x.split('.')[0])
+def parse_all():
+    for x in os.listdir('data/syllabus_html'):
+        parse(x.split('.')[0])
 
-db.session.commit()
-
-from matplotlib.axis import Axis
+    db.session.commit()

@@ -21,6 +21,10 @@
                     <br/>
                     {{ module.people }}
                 {% endif %}
+                {% if module.students_average %}
+                    <img src="https://img.shields.io/badge/students-{{ module.students_average }}-lightgrey.svg"
+                         height="30"/>
+                {% endif %}
 
             </div>
             <div class="menu">

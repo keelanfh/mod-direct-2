@@ -23,7 +23,7 @@ class URLRule(object):
         elif self.Code_Req == 'upper':
             output_string = module.id
         elif self.Code_Req == 'thing[5]':
-            output_string = module.id[5]
+            output_string = module.id[4]
         else:
             output_string = ""
         return self.URL.replace("%s", output_string)

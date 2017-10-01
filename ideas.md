@@ -17,5 +17,5 @@ Rules for modules from the list:
 - Student led venture to collate information
 - Level 0 (3129 modules): module code, title, credit value, level.
     + even this information is not available anywhere (except Portico).
-- Level 0a (? modules) Level 0 + link to timetable, moodle course, reading list, and 
+- Level 0a (1103 modules) Level 0 + link to timetable, moodle course, reading list, and description.
 - Level 1 (320 modules): Level 0 + description

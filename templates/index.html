@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    registrants
+    UCL Undergraduate Modules
 {% endblock %}
 
 {% block body %}
@@ -24,6 +24,10 @@
                          height="25">
                     {% if module.term %}
                         <img src="https://img.shields.io/badge/term-{{ module.term }}-lightgrey.svg" height="25"/>
+                    {% endif %}
+
+                    {% if module.students_average %}
+                        <img src="https://img.shields.io/badge/students-{{ module.students_average }}-lightgrey.svg" height="25"/>
                     {% endif %}
 
                 </div>

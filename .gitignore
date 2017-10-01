@@ -4,5 +4,5 @@ data/
 *.db
 ~*
 *.pyc
-database.csv
 ideas.md
+old-requirements.txt

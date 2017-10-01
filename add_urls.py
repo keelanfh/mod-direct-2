@@ -2,7 +2,7 @@
 """
 import re
 from application import Module, db
-import unicodecsv as csv
+import csv
 
 
 class URLRule(object):
@@ -38,7 +38,6 @@ def add_urls():
 
 
     human_url_rules = [URLRule(x) for x in rules]
-    print rules
 
     for module in module_list:
         for rule in human_url_rules:
@@ -51,7 +50,6 @@ def add_urls():
         dr = csv.DictReader(f)
         rules = [x for x in dr]
 
-    print rules
     machine_url_rules = [URLRule(x) for x in rules]
 
     for module in module_list:

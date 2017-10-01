@@ -6,3 +6,4 @@ data/
 *.pyc
 ideas.md
 old-requirements.txt
+env/

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, Markup, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.restless import APIManager
-import pandas
 import re
 import bleach
 

@@ -25,7 +25,6 @@ def parse(module_id):
     if module.dept_code == 'GEOG':
         # TODO remove this
 
-
         with open(html_output_file(module_id), 'r') as f:
             text = f.read()
             s = Selector(text=text)
@@ -51,7 +50,7 @@ def parse(module_id):
                 except IndexError:
                     pass
                 except AssertionError:
-                    print para.xpath('b/text()').extract()
+                    print(para.xpath('b/text()').extract())
                     raise AssertionError()
             module.url_parsed = True
 
@@ -63,7 +62,7 @@ def parse(module_id):
 
         paragraphs = s.xpath('//tr')
         for para in paragraphs:
-            print para.xpath('.//text()').extract()
+            print(para.xpath('.//text()').extract())
             extracted = para.xpath('.//text()').extract()
             if len(extracted) == 2:
                 output_dict[extracted[0].replace(":", "")] = extracted[1]

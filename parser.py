@@ -1,10 +1,12 @@
 """Program to parse web pages/PDFs/etc
 Currently modifies the module list for that module, saves back to modules.json
 """
-from scrapy.selector import Selector
 # from pdfextract import convert_pdf_to_txt
 # from collections import deque
 import os
+
+from scrapy.selector import Selector
+
 from application import Module, db
 
 
@@ -126,6 +128,7 @@ def parse(module_id):
               "Module prerequisites": "prereqs",
               "Module outline": "description",
               "Module aims": "aims",
+              "Notes": "notes",
 
               # The following information is already available from the Running List/elsewhere
               "Unit Value": None,
@@ -146,7 +149,6 @@ def parse(module_id):
               # The following should probably be integrated somehow
               "Module objectives": None,
               "Key skills provided by module": None,
-              "Notes": None,
               "Last updated": None,
 
               # Substitute for Moodle link? Would require a little database refactoring
@@ -157,20 +159,15 @@ def parse(module_id):
         output_dict["Course Aims"] = "\n".join([output_dict["Learning Outcomes"]])
         del output_dict["Learning Outcomes"]
 
-    for k in output_dict.keys():
+    for k, v in output_dict.items():
         try:
             if keymap[k] is not None:
                 if output_dict[k].strip() == "":
                     setattr(module, keymap[k], None)
                 else:
                     setattr(module, keymap[k], output_dict[k])
-            del output_dict[k]
         except KeyError:
             raise ParseError("Behaviour not defined for key " + k)
-    try:
-        assert output_dict == {}
-    except AssertionError:
-        raise ParseError("Behaviour not defined for keys ", output_dict.keys())
 
 
 def parse_all():

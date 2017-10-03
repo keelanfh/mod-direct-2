@@ -91,6 +91,11 @@
                     {{ module.financial_contribs | htmlformat }}
                 {% endif %}
 
+                {% if module.notes %}
+                    <h1>Notes</h1>
+                    {{ module.notes | htmlformat }}
+                {% endif %}
+
             </div>
         </div>
     </div>

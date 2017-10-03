@@ -1,8 +1,9 @@
-from flask import Flask, render_template, Markup, url_for, redirect
-from flask_sqlalchemy import SQLAlchemy
-from flask.ext.restless import APIManager
 import re
+
 import bleach
+from flask import Flask, render_template, Markup, url_for, redirect
+from flask.ext.restless import APIManager
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -38,6 +39,7 @@ class Module(db.Model):
     students_2016 = db.Column(db.Integer)
     students_2015 = db.Column(db.Integer)
     students_2014 = db.Column(db.Integer)
+    notes = db.Column(db.Text)
 
     def __init__(self, code, title, level, value):
         self.id = code.upper()
@@ -188,7 +190,7 @@ class Module(db.Model):
     def students_average(self):
         y = [x for x in [self.students_2016, self.students_2015, self.students_2014] if x]
         try:
-            return sum(y)//len(y)
+            return sum(y) // len(y)
         except ZeroDivisionError:
             return 0
 
@@ -203,8 +205,8 @@ def module_row(module_id):
 
 @app.route("/")
 def index():
-    rows = Module.query.all()
-    return render_template("index.html", modules=rows)
+    modules = Module.query.all()
+    return render_template("index.html", modules=modules)
 
 
 @app.route("/module/<module_id>")
@@ -218,18 +220,17 @@ def module_page(module_id):
 
 @app.route("/module/<module_id>/<goto>")
 def syllabus(module_id, goto):
+    fields = {"timetable": "timetable_url", "moodle": "moodle_url", "reading-list": "readinglist_url",
+              "syllabus": "url"}
     module = module_row(module_id)
     if module is None:
         return redirect(url_for(".index"))
-    elif goto == "timetable":
-        return redirect(module.timetable_url)
-    elif goto == "moodle":
-        return redirect(module.moodle_url)
-    elif goto == "reading-list":
-        return redirect(module.readinglist_url)
-    elif goto == "syllabus":
-        return redirect(module.url)
     else:
+        try:
+            if getattr(module, fields[goto]) is not None:
+                return redirect(getattr(module, fields[goto]))
+        except KeyError:
+            return redirect(url_for(".index"))
         return redirect(url_for(".index"))
 
 

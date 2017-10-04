@@ -4,6 +4,7 @@ Currently modifies the module list for that module, saves back to modules.json
 # from pdfextract import convert_pdf_to_txt
 # from collections import deque
 import os
+import re
 
 from scrapy.selector import Selector
 
@@ -76,7 +77,9 @@ def parse(module_id):
             s = Selector(text=text)
 
         description = s.xpath('//div[@id="col3"]//p//text()').extract()
-        description = description[0]
+        print(description)
+        description = re.sub(r"\s+", r" ", description[0].strip())
+        print(description)
         output_dict["Brief Course Description"] = description
 
     else:
@@ -175,3 +178,7 @@ def parse_all():
         parse(x.split('.')[0])
 
     db.session.commit()
+
+
+if __name__ == "__main__":
+    parse_all()

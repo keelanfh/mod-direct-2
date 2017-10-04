@@ -243,6 +243,7 @@ def html_format(string):
     if string is None:
         return None
     string = bleach.clean(string)
-    string = re.sub(r"([A-Z]{4})\s*([0-9]{4})", r'<a href="/module/\1\2">\1\2</a>', string)
+    string = re.sub(r"([A-Z]{4})(?:\s|[1246])*([GM0-9][0-9]{2}[MP0-9](?:\b|[ABCIW]))",
+                    r'<a href="/module/\1\2">\1\2</a>', string)
     string = re.sub(r"\n", r'<br/>', string)
     return Markup(string)

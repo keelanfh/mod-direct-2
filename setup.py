@@ -1,7 +1,8 @@
 import os
+import urllib.error
 import urllib.request
-import pandas
 
+import pandas
 from scrapy.selector import Selector
 
 from add_urls import add_urls
@@ -42,8 +43,10 @@ def download_html():
     for url in urls:
         if url['code'] + '.html' not in files_already:
             print(url)
-            urllib.request.urlretrieve(url["url"], html_output_file(url["code"]))
-
+            try:
+                urllib.request.urlretrieve(url["url"], html_output_file(url["code"]))
+            except urllib.error.HTTPError:
+                pass
 
 def add_examboard_data():
     socsci = os.path.join("data", "boe_sci.htm")

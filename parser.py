@@ -82,6 +82,16 @@ def parse(module_id):
         print(description)
         output_dict["Brief Course Description"] = description
 
+    elif module.dept_code == "BASC":
+        # Potentially this might need fixing - not sure if this is true for all of these...
+
+        with open(html_output_file(module_id), 'r') as f:
+            text = f.read()
+            s = Selector(text=text)
+
+        description = "\n".join([x.replace("\n", " ") for x in s.xpath('//*[@id="tab-1"]/div/p/text()').extract()])
+        print(description)
+        module.description = description
     else:
         return
 
@@ -180,6 +190,9 @@ def parse_all():
     db.session.commit()
 
 
-if __name__ == "__main__":
-    parse_all()
+#
+# if __name__ == "__main__":
+#     parse_all()
 
+parse("BASC1001")
+db.session.commit()

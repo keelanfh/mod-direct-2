@@ -1,8 +1,8 @@
+import csv
 import os
 import urllib.error
 import urllib.request
 
-import pandas
 from scrapy.selector import Selector
 
 from add_urls import add_urls
@@ -11,14 +11,13 @@ from parser import parse_all
 
 
 def import_from_running_list():
-    # Open excel file with the list of modules
-    module_list = pandas.read_excel('data/running_list.xlsx')
-
-    # Create a Module object containing this information, then output to dict
-    for x in module_list.itertuples():
-        module = Module(code=x.Code, title=x.Title, level=x.Level, value=x.Value)
-        db.session.add(module)
-    db.session.commit()
+    # Open CSV with the list of modules
+    with open(os.path.join("data", "running_list.csv"), "r") as f:
+        dr = csv.DictReader(f)
+        for x in dr:
+            module = Module(code=x['Code'], title=x['Title'], level=x['Level'], value=x['Value'])
+            db.session.add(module)
+        db.session.commit()
 
 
 def download_html():
@@ -47,6 +46,7 @@ def download_html():
                 urllib.request.urlretrieve(url["url"], html_output_file(url["code"]))
             except urllib.error.HTTPError:
                 pass
+
 
 def add_examboard_data():
     socsci = os.path.join("data", "boe_sci.htm")
